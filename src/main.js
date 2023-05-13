@@ -147,30 +147,55 @@ document.sendForm.sendCoin = () => {
 
 
 document.sendForm.convertCosmosNFT2ERC = async () => {
-
-    await convertCosmosNFT2ERC();   
+   let classId =  document.getElementById('classId').value
+   let nftId =  document.getElementById('nftId').value
+   let sender =  document.getElementById('sender').value
+   let receiver =  document.getElementById('receiver').value
+   let contractAddress =  document.getElementById('contractAddress').value
+   let tokenId =  document.getElementById('tokenId').value
+    console.log("typeUrl",typeUrl);
+    await convertCosmosNFT2ERC(classId,nftId,sender,receiver,contractAddress,tokenId);   
     console.log("xxl convertCosmosNFT2ERC 00");
     
 };
 
 document.sendForm.convertERC2CosmosNFT = async () => {
+    let classId =  document.getElementById('classId').value
+    let nftId =  document.getElementById('nftId').value
+    let sender =  document.getElementById('sender').value
+    let receiver =  document.getElementById('receiver').value
+    let contractAddress =  document.getElementById('contractAddress').value
+    let tokenId =  document.getElementById('tokenId').value
 
-    await convertERC2CosmosNFT();
+    await convertERC2CosmosNFT(classId,nftId,sender,receiver,contractAddress,tokenId);
     console.log("xxl convertERC2CosmosNFT 01");
       
 };
 
 
 document.sendForm.uptick2Iris = async () => {
+    let tokenIdsList =[]
+    let classId =  document.getElementById('classId').value
+    let nftId =  document.getElementById('tokenIdsList').value
+    let sender =  document.getElementById('sender').value
+    let receiver =  document.getElementById('receiver').value
+    let memo =  document.getElementById('memo').value
+    tokenIdsList.push(nftId)
 
-    await uptick2Iris();   
+    await uptick2Iris(classId,tokenIdsList,sender,receiver,memo);   
     console.log("xxl uptick2Iris 02");
     
 };
 
 document.sendForm.iris2Uptick = async () => {
-
-    await iris2Uptick();
+    let tokenIdsList =[]
+    let classId =  document.getElementById('classId').value
+    let nftId =  document.getElementById('tokenIdsList').value
+    let sender =  document.getElementById('sender').value
+    let receiver =  document.getElementById('receiver').value
+    let memo =  document.getElementById('memo').value
+    tokenIdsList.push(nftId)
+    await iris2Uptick(classId,tokenIdsList,sender,receiver,memo);
     console.log("xxl iris2Uptick 03");
       
 };

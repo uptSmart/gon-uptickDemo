@@ -11,28 +11,228 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     </head>
-    <body>
-        <div id="app">
+    <body style=" background-image: url(./src/assets/image_bg.jpg);">
+        <div id="app" >
             <br/>
             <div class="container-sm">
-            <b>Address:</b>
-            <div id="address"></div>
-            <form name="sendForm">
-
-                <br/>
-                <button class="btn btn-primary" onclick="sendCoin()" type="button">sendCoin</button>
-
-                <br/><br/>
-                <button class="btn btn-primary" onclick="convertCosmosNFT2ERC()" type="button">cosmosNFT2ERC</button>
-                <button class="btn btn-primary" onclick="convertERC2CosmosNFT()" type="button">ERC2CosmosNFT</button>
-                
-                <br/><br/>
-                <button class="btn btn-primary" onclick="uptick2Iris()" type="button">uptick2Iris</button>
-                <button class="btn btn-primary" onclick="iris2Uptick()" type="button">iris2Uptick</button>
+            <!-- <b>Address:</b>
+            <div id="address"></div> -->
+            <form name="sendForm" class="form"  >
+  
+                <!-- <button class="btn btn-primary" onclick="sendCoin()" type="button">sendCoin</button> -->        
+                <button class="btn "  onclick="convertCosmosNFT2ERC(),showForm('form1')"  type="button" >cosmosNFT2ERC</button>
+                <button class="btn " onclick="convertERC2CosmosNFT(),showForm('form2')" type="button">ERC2CosmosNFT</button>
+    
+                <button class="btn " onclick="uptick2Iris(),showForm('form3')" type="button">uptick2Iris</button>
+                <button class="btn " onclick="iris2Uptick(),showForm('form4')" type="button">iris2Uptick</button>
 
 
             </form>
+            <div style="margin-top: 50px;">
+                <div id="form1" style="width: 100%;">
+                    <div class="paramsList">
+                        <div class="params">typeUrl</div>
+                        <input type="text" class="inputValue" id="typeUrl"  value="/uptick.erc721.v1.MsgConvertNFT">
+                    </div>
+                   
+                    <div class="paramsList">
+                        <div class="params">classId</div>
+                        <input type="text" class="inputValue" id="classId" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">nftId</div>
+                        <input type="text" class="inputValue" id="nftId" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">sender</div>
+                        <input type="text" class="inputValue" id="sender" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">receiver</div>
+                        <input type="text" class="inputValue" id="receiver" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">contractAddress</div>
+                        <input type="text" class="inputValue" id="contractAddress" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">tokenId</div>
+                        <input type="text" class="inputValue" id="tokenId" >
+                    </div>
+                    
+                </div>
+                <div id="form2" style="display: none; width: 100%;" >
+                    <div class="paramsList">
+                        <div class="params">typeUrl</div>
+                        <input type="text" class="inputValue" id="typeUrl"  value="/uptick.erc721.v1.MsgConvertERC721">
+                    </div>
+                   
+                    <div class="paramsList">
+                        <div class="params">classId</div>
+                        <input type="text" class="inputValue" id="classId" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">nftId</div>
+                        <input type="text" class="inputValue" id="nftId" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">sender</div>
+                        <input type="text" class="inputValue" id="sender" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">receiver</div>
+                        <input type="text" class="inputValue" id="receiver" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">contractAddress</div>
+                        <input type="text" class="inputValue" id="contractAddress" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">tokenId</div>
+                        <input type="text" class="inputValue" id="tokenId" >
+                    </div>
+                  
+                </div>
+                <div id="form3" style="display: none; width: 100%;" >
+                    <div class="paramsList">
+                        <div class="params">typeUrl</div>
+                        <input type="text" class="inputValue" id="typeUrl"  value="/ibc.applications.nft_transfer.v1.MsgTransfer">
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">sourcePort</div>
+                        <input type="text" class="inputValue" id="sourcePort"  value="nft-transfer">
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">sourceChannel</div>
+                        <input type="text" class="inputValue" id="sourceChannel" value="channel-0" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">classId</div>
+                        <input type="text" class="inputValue" id="classId" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">tokenIdsList</div>
+                        <input type="text" class="inputValue" id="tokenIdsList" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">sender</div>
+                        <input type="text" class="inputValue" id="sender" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">receiver</div>
+                        <input type="text" class="inputValue" id="receiver" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">timeoutHeight</div>
+                        <input type="text" class="inputValue" id="timeoutHeight" value="[1000,0]" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">timeoutTimestamp</div>
+                        <input type="text" class="inputValue" id="timeoutTimestamp"  value="0">
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">memo</div>
+                        <input type="text" class="inputValue" id="memo" >
+                    </div>
+                </div>
+                <div id="form4" style="display: none; width: 100%;" >
+                    <div class="paramsList">
+                        <div class="params">typeUrl</div>
+                        <input type="text" class="inputValue" id="typeUrl"  value="/ibc.applications.nft_transfer.v1.MsgTransfer">
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">sourcePort</div>
+                        <input type="text" class="inputValue" id="sourcePort"  value="nft-transfer">
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">sourceChannel</div>
+                        <input type="text" class="inputValue" id="sourceChannel" value="channel-62" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">classId</div>
+                        <input type="text" class="inputValue" id="classId" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">tokenIdsList</div>
+                        <input type="text" class="inputValue" id="tokenIdsList" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">sender</div>
+                        <input type="text" class="inputValue" id="sender" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">receiver</div>
+                        <input type="text" class="inputValue" id="receiver" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">timeoutHeight</div>
+                        <input type="text" class="inputValue" id="timeoutHeight" value="[1000,0]" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">timeoutTimestamp</div>
+                        <input type="text" class="inputValue" id="timeoutTimestamp" value="0" >
+                    </div>
+                    <div class="paramsList">
+                        <div class="params">memo</div>
+                        <input type="text" class="inputValue" id="memo" >
+                    </div>
+                </div>
+            </div>
+           
+
+          
             </div>
         </div>
     </body>
+    <script>
+       function showForm(id){      
+        document.getElementById('form1').style.display = 'none'
+        document.getElementById('form2').style.display = 'none'
+        document.getElementById('form3').style.display = 'none'
+        document.getElementById('form4').style.display = 'none'
+
+        document.getElementById(id).style.display = 'inline-block'
+        // document.getElementById(id).style.background = '#9530fd'
+        }
+    </script>
+    <style>
+        #app{
+            margin-top:50px;
+        }
+        .btn{
+            background-color: #9530fd;
+            /* background-color: silver; */
+            border-radius: 19px;
+        }
+        .form{
+            display: flex;
+            justify-content:space-between;
+        }
+        .paramsList{
+            margin-top: 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .params{
+            width: 100px;
+            height: 30px;
+            font-family: Helvetica;
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0px;
+            color: #fff;
+            background-color: #9530fd;
+            text-align: center;
+            padding-top: 5px;
+        }
+        .inputValue{
+            margin-left: 5%;
+            width: 70%;
+        }
+
+    </style>
+   
 </html>
+

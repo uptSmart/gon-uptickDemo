@@ -1,11 +1,10 @@
 
-import {
-    SigningStargateClient,
-} from '../uptickjs/packages/stargate'
-
 // import {
 //     SigningStargateClient,
-// } from '@uptsmart/stargate'
+// } from '../uptickjs/packages/stargate'
+import {
+    SigningStargateClient,
+} from '@uptsmart/stargate'
 
 import { 
     convertCosmosNFT2ERC,

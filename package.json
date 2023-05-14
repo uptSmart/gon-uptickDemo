@@ -17,10 +17,10 @@
   },
   "dependencies": {
     
-    "@uptsmart/proto-signing": "^0.27.4",
-    "@uptsmart/proto-types": "^0.27.6",
-    "@uptsmart/stargate": "^0.27.5",
-
+    "@uptsmart/stargate": "^0.27.10",
+    "@uptsmart/proto-types": "^0.27.7",
+    "@uptsmart/proto-signing": "^0.27.7",
+    
     "@chainapsis/cosmosjs": "0.0.3-alpha.3",
     "@cosmjs/launchpad": "^0.23.0",
     "@cosmjs/proto-signing": "^0.27.1",

@@ -1,11 +1,11 @@
 
-import {
-    SigningStargateClient
-} from '../uptickjs/packages/stargate'
-
 // import {
-//     SigningStargateClient,
-// } from '@uptsmart/stargate'
+//     SigningStargateClient
+// } from '../uptickjs/packages/stargate'
+
+import {
+    SigningStargateClient,
+} from '@uptsmart/stargate'
 
 // import { getRanHex } from "./utils/helper";
 // import { coins } from "@cosmjs/stargate";

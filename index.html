@@ -20,11 +20,11 @@
             <form name="sendForm" class="form"  >
   
                 <!-- <button class="btn btn-primary" onclick="sendCoin()" type="button">sendCoin</button> -->        
-                <button class="btn "  onclick="convertCosmosNFT2ERC(),showForm('form1')"  type="button" >cosmosNFT2ERC</button>
-                <button class="btn " onclick="convertERC2CosmosNFT(),showForm('form2')" type="button">ERC2CosmosNFT</button>
+                <button class="btnform1 "  onclick="convertCosmosNFT2ERC(),showForm('form1')"  type="button" >cosmosNFT2ERC</button>
+                <button class="btnform2 " onclick="convertERC2CosmosNFT(),showForm('form2')" type="button">ERC2CosmosNFT</button>
     
-                <button class="btn " onclick="uptick2Iris(),showForm('form3')" type="button">uptick2Iris</button>
-                <button class="btn " onclick="iris2Uptick(),showForm('form4')" type="button">iris2Uptick</button>
+                <button class="btnform3 " onclick="uptick2Iris(),showForm('form3')" type="button">uptick2Iris</button>
+                <button class="btnform4 " onclick="iris2Uptick(),showForm('form4')" type="button">iris2Uptick</button>
 
 
             </form>
@@ -195,16 +195,56 @@
 
         document.getElementById(id).style.display = 'inline-block'
         // document.getElementById(id).style.background = '#9530fd'
+        let select = localStorage.getItem('selectBtn')
+        if(select){
+            document.getElementsByClassName(select)[0].classList.remove('background')
+        }
+        document.getElementsByClassName('btnform1').background = 'silver'
+        document.getElementsByClassName('btnform2').background = 'silver'
+        document.getElementsByClassName('btnform3').background = 'silver'
+        document.getElementsByClassName('btnform4').background = 'silver'
+        localStorage.setItem('selectBtn','btn'+id)
+        document.getElementsByClassName('btn'+id)[0].classList.add('background')
         }
     </script>
     <style>
         #app{
             margin-top:50px;
         }
-        .btn{
-            background-color: #9530fd;
+        .background{
+            background: #9530fd !important;
+        }
+        .btnform1{
+            width: 150px;
+            height: 40px;
+       
             /* background-color: silver; */
             border-radius: 19px;
+            border: 1px;
+        }
+        .btnform2{
+            width: 150px;
+            height: 40px;
+          
+            /* background-color: silver; */
+            border-radius: 19px;
+            border: 1px;
+        }
+        .btnform3{
+            width: 150px;
+            height: 40px;
+   
+            /* background-color: silver; */
+            border-radius: 19px;
+            border: 1px;
+        }
+        .btnform4{
+            width: 150px;
+            height: 40px;
+
+            /* background-color: silver; */
+            border-radius: 19px;
+            border: 1px;
         }
         .form{
             display: flex;

@@ -1,11 +1,3 @@
-
-// import {
-//     SigningStargateClient,
-// } from '../uptickjs/packages/stargate'
-import {
-    SigningStargateClient,
-} from '@uptsmart/stargate'
-
 import { 
     convertCosmosNFT2ERC,
     convertERC2CosmosNFT,
@@ -28,7 +20,7 @@ window.onload = async () => {
                     {
                     // Chain-id of the Osmosis chain.
                     chainId: "uptick_7000-1",
-                    chainName: "uptck_01",
+                    chainName: "Uptick Testnet1",
                       rpc: uptickUrl,
                     rest: "http://52.74.190.214:1317",
                     stakeCurrency: {
@@ -85,119 +77,74 @@ window.onload = async () => {
     document.getElementById("address").append(accounts[0].address);
 };
 
-document.sendForm.sendCoin = () => {
-    let recipient = "uptick103rx84uqa7n4mtmz8f88n4g9m7973rxutrtn7d";
-    let amount = 1;
-    // let memo = document.sendForm.memo.value;
 
-    amount = parseFloat(amount);
-    if (isNaN(amount)) {
-        alert("Invalid amount");
-        return false;
-    }
+document.sendForm.iris2Uptick = async () => {
 
-    amount *= 1000000000000000000;
-    amount = Math.floor(amount);
+    debugger;
+    let tokenIdsList =[]
 
-    (async () => {
-        // See above.
-        const chainId = "uptick_7000-1";
-        await window.keplr.enable(chainId);
-        const offlineSigner = window.getOfflineSigner(chainId);
-        const accounts = await offlineSigner.getAccounts();
+    let typeUrl =  document.getElementById('typeUrl1').value
+    let port =  document.getElementById('port1').value
+    let channel =  document.getElementById('channel1').value
 
-        const client = await SigningStargateClient.connectWithSigner(
-            uptickUrl,
-            offlineSigner
-        )
-
-        const amountFinal = {
-            denom: 'auptick',
-            amount: amount.toString(),
-        }
-        const fee = {
-            amount: [{
-                denom: 'auptick',
-                amount: '5000',
-            }, ],
-            gas: '200000',
-        }
-
-        console.log("xxl sendTokens",[
-            accounts[0].address, recipient, [amountFinal], fee, ""
-        ]);
-
-        const result = await client.sendTokens(accounts[0].address, recipient, [amountFinal], fee, "")
-        console.log("xxl result ",result);
-        // assertIsBroadcastTxSuccess(result)
-
-        if (result.code !== undefined &&
-            result.code !== 0) {
-            console.log("Failed to send tx: " + result.log || result.rawLog);
-        } else {
-            console.log("Succeed to send tx:" + result.transactionHash);
-        }
-
-
-    })();
-
-    return false;
+    let classId =  document.getElementById('classId1').value
+    let nftId =  document.getElementById('tokenIdsList1').value
+    let sender =  document.getElementById('sender1').value
+    let receiver =  document.getElementById('receiver1').value
+    let memo =  document.getElementById('memo1').value
+    tokenIdsList.push(nftId)
+    await iris2Uptick(typeUrl,port,channel,classId,tokenIdsList,sender,receiver,memo);
+    console.log("iris2Uptick");
+      
 };
 
 
 document.sendForm.convertCosmosNFT2ERC = async () => {
-   let classId =  document.getElementById('classId').value
-   let nftId =  document.getElementById('nftId').value
-   let sender =  document.getElementById('sender').value
-   let receiver =  document.getElementById('receiver').value
-   let contractAddress =  document.getElementById('contractAddress').value
-   let tokenId =  document.getElementById('tokenId').value
+   let typeUrl =  document.getElementById('typeUrl2').value
+   let classId =  document.getElementById('classId2').value
+   let nftId =  document.getElementById('nftId2').value
+   let sender =  document.getElementById('sender2').value
+   let receiver =  document.getElementById('receiver2').value
+   let contractAddress =  document.getElementById('contractAddress2').value
+   let tokenId =  document.getElementById('tokenId2').value
     console.log("typeUrl",typeUrl);
-    await convertCosmosNFT2ERC(classId,nftId,sender,receiver,contractAddress,tokenId);   
+    await convertCosmosNFT2ERC(typeUrl,classId,nftId,sender,receiver,contractAddress,tokenId);   
     console.log("xxl convertCosmosNFT2ERC 00");
     
 };
 
 document.sendForm.convertERC2CosmosNFT = async () => {
-    let classId =  document.getElementById('classId').value
-    let nftId =  document.getElementById('nftId').value
-    let sender =  document.getElementById('sender').value
-    let receiver =  document.getElementById('receiver').value
-    let contractAddress =  document.getElementById('contractAddress').value
-    let tokenId =  document.getElementById('tokenId').value
+    debugger
+    let typeUrl =  document.getElementById('typeUrl3').value
+    let classId =  document.getElementById('classId3').value
+    let nftId =  document.getElementById('nftId3').value
+    let sender =  document.getElementById('sender3').value
+    let receiver =  document.getElementById('receiver3').value
+    let contractAddress =  document.getElementById('contractAddress3').value
+    let tokenId =  document.getElementById('tokenId3').value
 
-    await convertERC2CosmosNFT(classId,nftId,sender,receiver,contractAddress,tokenId);
+    await convertERC2CosmosNFT(typeUrl,classId,nftId,sender,receiver,contractAddress,tokenId);
     console.log("xxl convertERC2CosmosNFT 01");
       
 };
 
-
 document.sendForm.uptick2Iris = async () => {
+    
     let tokenIdsList =[]
-    let classId =  document.getElementById('classId').value
-    let nftId =  document.getElementById('tokenIdsList').value
-    let sender =  document.getElementById('sender').value
-    let receiver =  document.getElementById('receiver').value
-    let memo =  document.getElementById('memo').value
+    let typeUrl =  document.getElementById('typeUrl4').value
+    let port =  document.getElementById('port1').value
+    let channel =  document.getElementById('channel4').value
+
+    let classId =  document.getElementById('classId4').value
+    let nftId =  document.getElementById('tokenIdsList4').value
+    let sender =  document.getElementById('sender4').value
+    let receiver =  document.getElementById('receiver4').value
+    let memo =  document.getElementById('memo4').value
     tokenIdsList.push(nftId)
 
-    await uptick2Iris(classId,tokenIdsList,sender,receiver,memo);   
+    await uptick2Iris(typeUrl,port,channel,classId,tokenIdsList,sender,receiver,memo);   
     console.log("xxl uptick2Iris 02");
     
 };
-
-document.sendForm.iris2Uptick = async () => {
-    let tokenIdsList =[]
-    let classId =  document.getElementById('classId').value
-    let nftId =  document.getElementById('tokenIdsList').value
-    let sender =  document.getElementById('sender').value
-    let receiver =  document.getElementById('receiver').value
-    let memo =  document.getElementById('memo').value
-    tokenIdsList.push(nftId)
-    await iris2Uptick(classId,tokenIdsList,sender,receiver,memo);
-    console.log("xxl iris2Uptick 03");
-      
-};
-
 
 

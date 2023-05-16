@@ -1,31 +1,44 @@
-
-// import {
-//     SigningStargateClient
-// } from '../uptickjs/packages/stargate'
-
 import {
     SigningStargateClient,
 } from '@uptsmart/stargate'
 
-// import { getRanHex } from "./utils/helper";
-// import { coins } from "@cosmjs/stargate";
-
-// const BigNumber = require('big-number');
-// const md5 = require('md5');
 
 const chainId = "uptick_7000-1";
 const irisChainId = "gon-irishub-1";
 const uptickUrl = "http://localhost:8081/uptick";
 const irisUrl = "http://localhost:8081/iris";
 
-//--
-export async function convertCosmosNFT2ERC(classId,nftId,sender,receiver,contractAddress,tokenId) {
+export async function iris2Uptick(typeUrl,port,channel,classId,tokenIdsList,sender,receiver,memo) {
+
+    //
+    let account = await getAccountInfo("gon-irishub-1");
+    console.log("account address is : ",account.bech32Address);
+
+    let timespan = (Date.now() + 60000) * 1000000;
+    let msg =  {
+        typeUrl:typeUrl,
+        value:[
+            port,channel,classId,tokenIdsList,sender,receiver,[0,0],timespan,memo
+        ]
+    }
+
+    console.log(msg);
+
+    const result = await sendMsgsTx(sender, [msg], 1000000, "0x1234",true);
+    if(result.code == 0){
+        alert("successful ! ");
+    }
+    return result;
+
+}
+
+
+export async function convertCosmosNFT2ERC(typeUrl,classId,nftId,sender,receiver,contractAddress,tokenId) {
 
     //
     let account = await getAccountInfo();
     console.log("xxl convertCosmosNFT2ERC 00 ",account.bech32Address);
-    console.log('wwww',classId,nftId,sender,receiver,contractAddress,tokenId);
-
+    console.log('wwww',typeUrl,classId,nftId,sender,receiver,contractAddress,tokenId);
 
     // classId: jspb.Message.getFieldWithDefault(msg, 1, ""),
     // nftId: jspb.Message.getFieldWithDefault(msg, 2, ""),
@@ -34,19 +47,23 @@ export async function convertCosmosNFT2ERC(classId,nftId,sender,receiver,contrac
     // contractAddress: jspb.Message.getFieldWithDefault(msg, 5, ""),
     // tokenId: jspb.Message.getFieldWithDefault(msg, 6, "")
     let msg =  {
-        typeUrl: "/uptick.erc721.v1.MsgConvertNFT",
+        typeUrl: typeUrl,
         value:[
-            classId,
-            nftId,sender,receiver, contractAddress,tokenId]
+            classId,nftId,receiver,sender,contractAddress,tokenId]
     }
-
-    const result = await sendMsgsTx(receiver, [msg], 1000000, "0x1234");
+    const result = await sendMsgsTx(account.bech32Address, [msg], 1000000, "0x1234");
+    if(result.code == 0){
+        alert("successful ! ");
+        const logInfo = JSON.parse(result.rawLog)
+        document.getElementById('contractAddress2').value = logInfo[0].events[0].attributes[4].value
+        document.getElementById('tokenId2').value = logInfo[0].events[0].attributes[5].value
+    }
     return result;
 
 
 }
 // await convertCosmosNFT2ERC(classId,nftId,sender,receiver,contractAddress,tokenId);   
-export async function convertERC2CosmosNFT(classId,nftId,sender,receiver,contractAddress,tokenId) {
+export async function convertERC2CosmosNFT(typeUrl,classId,nftId,sender,receiver,contractAddress,tokenId) {
    
     //
     let account = await getAccountInfo();
@@ -59,21 +76,31 @@ export async function convertERC2CosmosNFT(classId,nftId,sender,receiver,contrac
     // classId: jspb.Message.getFieldWithDefault(msg, 5, ""),
     // nftId: jspb.Message.getFieldWithDefault(msg, 6, "")
     let msg =  {
-        typeUrl: "/uptick.erc721.v1.MsgConvertERC721",
+        typeUrl:typeUrl,
         value:[
             contractAddress,
             tokenId,receiver,sender, classId,nftId]
     }
 
-    const result = await sendMsgsTx(receiver, [msg], 1000000, "0x1234");
+    const result = await sendMsgsTx(account.bech32Address, [msg], 1000000, "0x1234");
+    if(result.code == 0){
+        alert("successful ! ");
+        const logInfo = JSON.parse(result.rawLog)
+        console.log(logInfo);
+
+        document.getElementById('classId3').value = logInfo[0].events[0].attributes[2].value
+        document.getElementById('nftId3').value = logInfo[0].events[0].attributes[3].value
+
+
+    }
     return result;
 
 }
 
-export async function uptick2Iris(classId,tokenIdsList,sender,receiver,memo) {
+export async function uptick2Iris(typeUrl,port,channel,classId,tokenIdsList,sender,receiver,memo) {
 
     let account = await getAccountInfo();
-    console.log("xxl uptick2Iris 02 ",account.bech32Address);
+    console.log("uptick2Iris 02 ",account.bech32Address);
 
     // sourcePort: jspb.Message.getFieldWithDefault(msg, 1, ""),
     // sourceChannel: jspb.Message.getFieldWithDefault(msg, 2, ""),
@@ -83,60 +110,22 @@ export async function uptick2Iris(classId,tokenIdsList,sender,receiver,memo) {
     // receiver: jspb.Message.getFieldWithDefault(msg, 6, ""),
     // timeoutHeight: (f = msg.getTimeoutHeight()) && ibc_core_client_v1_client_pb.Height.toObject(includeInstance, f),
     // timeoutTimestamp: jspb.Message.getFieldWithDefault(msg, 8, 0),
-    // memo: jspb.Message.getFieldWithDefault(msg, 9, "")
-
-
+    // memo: jspb.Message.getFieldWithDefault(msg, 9, ""
+    let timespan = (Date.now() + 60000) * 1000000;
     let msg =  {
-        typeUrl: "/ibc.applications.nft_transfer.v1.MsgTransfer",
+        typeUrl:typeUrl,
         value:[
-            "nft-transfer","channel-0",
-            classId,tokenIdsList,
-            sender,receiver,[1000,0],0,memo
-            ]
+            port,channel,classId,tokenIdsList,sender,receiver,[0,0],timespan,memo
+        ]
     }
-    const result = await sendMsgsTx(sender, [msg], 1000000, "0x1234");
+
+    const result = await sendMsgsTx(account.bech32Address, [msg], 1000000, "0x1234");
+    if(result.code == 0){
+        alert("successful ! ");
+    }
     return result;
 
 }
-
-// export async function iris2Uptick() {
-
-//     //
-//     let account = await getAccountInfo("gon-irishub-1");
-//     console.log("xxl iris2Uptick 03 ",account.bech32Address);
-
-//     let msg =  {
-//         typeUrl: "/ibc.applications.nft_transfer.v1.MsgTransfer",
-//         value:[
-//             "nft-transfer","channel-62",
-//             "irisDemon14",["id001"],
-//             account.bech32Address,"uptick1ehh5503n2rhpz8evfqpsa62kfqc58c5g02kjhd",[1000,0],0,"test"
-//             ]
-//     }
-
-//     const result = await sendMsgsTx(account.bech32Address, [msg], 1000000, "0x1234",true);
-//     return result;
-
-// }
-export async function iris2Uptick(classId,tokenIdsList,sender,receiver,memo) {
-
-        //
-        let account = await getAccountInfo("gon-irishub-1");
-        console.log("xxl iris2Uptick 03 ",account.bech32Address);
-    
-        let msg =  {
-            typeUrl: "/ibc.applications.nft_transfer.v1.MsgTransfer",
-            value:[
-                "nft-transfer","channel-62",
-                classId,tokenIdsList,
-                sender,receiver,[1000,0],0,memo
-                ]
-        }
-    
-        const result = await sendMsgsTx(sender, [msg], 1000000, "0x1234",true);
-        return result;
-    
-    }
 
 
 async function getAccountInfo(pChainId="uptick_7000-1") {
@@ -149,7 +138,6 @@ async function getAccountInfo(pChainId="uptick_7000-1") {
         await window.keplr.enable(pChainId);
         // get account
         const account = await window.keplr.getKey(pChainId);
-
         return account;
     } catch (error) {
 
@@ -194,14 +182,9 @@ async function sendMsgsTx(address, msgs, amount, data,isIris=false) {
 
     }
 
-
     console.log("###xxl sendMsgsTx",[address, msgs, fee, data]);
-
     const result = await client.sendMsgsTx(address, msgs, fee, data);
-
     console.log("###xxl result",result);
-    
-    
     return result;
 
 

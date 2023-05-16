@@ -7,13 +7,13 @@ This is a simple example if how to Keplr extension injects the offline signer th
 Install dependencies
 
 ```
-npm install
+yarn install
 
 ```
 
 Run development Server
 ```
-npm run dev
+yarn dev
 ```
 
 For more details see comments on `src/main.js`.

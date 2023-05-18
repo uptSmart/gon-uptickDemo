@@ -5,7 +5,7 @@ import {
     iris2Uptick
   } from "./wallet";
 
-const uptickUrl = "http://localhost:8081/uptick";
+const uptickUrl = "http://52.74.190.214:8081/uptick";
 
 window.onload = async () => {
 

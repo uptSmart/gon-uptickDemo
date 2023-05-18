@@ -5,8 +5,8 @@ import {
 
 const chainId = "uptick_7000-1";
 const irisChainId = "gon-irishub-1";
-const uptickUrl = "http://localhost:8081/uptick";
-const irisUrl = "http://localhost:8081/iris";
+const uptickUrl = "http://52.74.190.214:8081/uptick";
+const irisUrl = "http://52.74.190.214:8081/iris";
 
 export async function iris2Uptick(typeUrl,port,channel,classId,tokenIdsList,sender,receiver,memo) {
 
